@@ -58,10 +58,12 @@ try:  # Native win32
     _loader, _functype = windll, WINFUNCTYPE
 except ImportError:  # Unix/Cygwin
     _loader, _functype = cdll, CFUNCTYPE
+#replace loading dll from liblouis project
 import os
 os.environ['LOUIS_TABLEPATH'] = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'tables')
 print(os.environ['LOUIS_TABLEPATH'])
-liblouis = _loader[os.path.dirname(os.path.abspath(__file__))+'/liblouis.dll']
+dll_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'liblouis.dll')
+liblouis = windll.LoadLibrary(dll_path)
 _is_windows = platform == "win32"
 
 # { Module Configuration
